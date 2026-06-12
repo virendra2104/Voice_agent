@@ -8,7 +8,8 @@ from livekit.agents import (
     cli,
 )
 from livekit.plugins import elevenlabs, groq, silero
-
+print("ELEVEN:", repr(os.getenv("ELEVENLABS_API_KEY")))
+print("GROQ:", repr(os.getenv("GROQ_API_KEY")))
 # 1. Load the environment variables from your .env file
 load_dotenv()
 
