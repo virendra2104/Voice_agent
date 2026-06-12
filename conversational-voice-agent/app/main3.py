@@ -8,8 +8,7 @@ from livekit.agents import (
     cli,
 )
 from livekit.plugins import elevenlabs, groq, silero
-print("ELEVEN:", repr(os.getenv("ELEVENLABS_API_KEY")))
-print("GROQ:", repr(os.getenv("GROQ_API_KEY")))
+
 # 1. Load the environment variables from your .env file
 load_dotenv()
 
@@ -42,7 +41,7 @@ async def entrypoint(ctx: JobContext):
         tts=elevenlabs.TTS(
             api_key=os.getenv("ELEVENLABS_API_KEY"), # Uses the exact key from your doc snippet
             voice_id="JBFqnCBsd6RMkjVDRZzb",         # Uses "George" from your doc snippet
-            model="eleven_multilingual_v2",               # CRITICAL: Must use turbo_v2 or flash_v1 for streaming websocket audio
+            model="eleven_flash_v2",             # CRITICAL: Must use turbo_v2 or flash_v1 for streaming websocket audio
         )
     )
 
