@@ -1,5 +1,5 @@
-import os
 from dotenv import load_dotenv
+from livekit.plugins import sarvam
 from livekit.agents import (
     Agent,
     AgentSession,
@@ -7,16 +7,15 @@ from livekit.agents import (
     WorkerOptions,
     cli,
 )
-from livekit.plugins import elevenlabs, groq, silero
 
-# 1. Load the environment variables from your .env file
+from livekit.plugins import groq, silero
+
 load_dotenv()
 
 class Assistant(Agent):
     def __init__(self):
         super().__init__(
             instructions="""
-            You are Mona voice assistant
             You are a helpful voice assistant.
             Keep responses short and conversational.
             """
@@ -36,14 +35,14 @@ async def entrypoint(ctx: JobContext):
         llm=groq.LLM(
             model="llama-3.1-8b-instant",
         ),
-        
-        # 2. Configured exactly to bridge your doc info with LiveKit's streaming architecture
-        tts=elevenlabs.TTS(
-            api_key=os.getenv("ELEVENLABS_API_KEY"), # Uses the exact key from your doc snippet
-            voice_id="JBFqnCBsd6RMkjVDRZzb",         # Uses "George" from your doc snippet
-            model="eleven_flash_v2",             # CRITICAL: Must use turbo_v2 or flash_v1 for streaming websocket audio
-        )
+        tts=sarvam.TTS(
+                target_language_code="en-IN",
+                model="bulbul:v3",
+                speaker="shubh",)
     )
+
+    # Disable audio output since no TTS is configured
+   
 
     await session.start(
         room=ctx.room,
@@ -60,3 +59,4 @@ if __name__ == "__main__":
             entrypoint_fnc=entrypoint,
         )
     )
+
