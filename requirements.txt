@@ -9,3 +9,4 @@ livekit-plugins-openai>=1.6.0
 livekit-plugins-elevenlabs>=1.6.0
 livekit-plugins-silero>=1.6.0
 watchfiles==1.1.1
+livekit-plugins-sarvam>=1.6.0 
